@@ -1,121 +1,89 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Container, Navbar, Nav, Card, Button, ButtonGroup } from "react-bootstrap";
+import { useState } from "react";
+import FlowerCard from "./FlowerCard";
+import AllGallery from "./AllGallery";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+// Navbar Component
+function Navigation() {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    <Navbar bg="light" expand="lg" className="shadow-sm">
+      <Container>
+        <Navbar.Brand as={Link} to="/">Bloom & Petal</Navbar.Brand>
+        <Nav className="me-auto">
+          <Nav.Link as={Link} to="/">Home</Nav.Link>
+          <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
+          <Nav.Link as={Link} to="/gallery">Gallery</Nav.Link>
+        </Nav>
+      </Container>
+    </Navbar>
+  );
 }
 
-export default App
+// Home Page
+function Home() {
+  return (
+    <Container className="mt-4 text-center">
+      <h1>Bloom & Petal Florist</h1>
+      <p>Handcrafted floral arrangements for every occasion</p>
+      <Button variant="success">Shop Arrangements</Button>
+    </Container>
+  );
+}
+
+// Contact Page
+function Contact() {
+  return (
+    <Container className="mt-4">
+      <h1>Contact Us</h1>
+      <ul>
+        <li>Email: TODO</li>
+        <li>Phone: TODO</li>
+        <li>Insta: TODO</li>
+      </ul>
+    </Container>
+  );
+}
+
+// Gallery Page
+function Gallery() {
+  return (
+    <Container className="mt-4">
+      <div className="d-flex justify-content-between align-items-center">
+        <h1>Our Arrangements</h1>
+        <Button as={Link} to="/gallery/all" variant="success">
+          See All
+        </Button>
+      </div>
+
+      <FlowerCard title="Wedding" description="blah blah blah" />
+      <FlowerCard title="Prom" description="blah blah blah" />
+      <FlowerCard title="Other events" description="blah blah blah" />
+    </Container>
+  );
+}
+
+// Footer Component
+function Footer() {
+  return (
+    <div className="text-center mt-5 p-3 bg-light">
+      <p>© 2026 Bloom & Petal Florist</p>
+    </div>
+  );
+}
+
+// App Component
+export default function App() {
+  return (
+    <Router>
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/gallery/all" element={<AllGallery />} />
+      </Routes>
+      <Footer />
+    </Router>
+  );
+}
