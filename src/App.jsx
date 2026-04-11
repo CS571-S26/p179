@@ -3,6 +3,11 @@ import { Container, Navbar, Nav, Card, Button, ButtonGroup } from "react-bootstr
 import { useState } from "react";
 import FlowerCard from "./FlowerCard";
 import AllGallery from "./AllGallery";
+import ContactForm from "./ContactForm";
+
+function Contact() {
+  return <ContactForm />;
+}
 
 // Navbar Component
 function Navigation() {
@@ -32,18 +37,18 @@ function Home() {
 }
 
 // Contact Page
-function Contact() {
-  return (
-    <Container className="mt-4">
-      <h1>Contact Us</h1>
-      <ul>
-        <li>Email: TODO</li>
-        <li>Phone: TODO</li>
-        <li>Insta: TODO</li>
-      </ul>
-    </Container>
-  );
-}
+// function Contact() {
+//   return (
+//     <Container className="mt-4">
+//       <h1>Contact Us</h1>
+//       <ul>
+//         <li>Email: TODO</li>
+//         <li>Phone: TODO</li>
+//         <li>Insta: TODO</li>
+//       </ul>
+//     </Container>
+//   );
+// }
 
 // Gallery Page
 function Gallery() {
