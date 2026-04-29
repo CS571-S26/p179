@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { Container, Navbar, Nav, Button, Carousel, Row, Col } from "react-bootstrap";
-import { useState } from "react";
-import FlowerCard from "./FlowerCard";
 import AllGallery from "./AllGallery";
-import ContactForm from "./ContactForm";
+import Gallery from "./Gallery";
+import Contact from "./Contact";
+import { highlights } from "./data/slides";
 
 // Navbar Component
 function Navigation() {
@@ -28,90 +28,49 @@ function Navigation() {
 function Home() {
   const navigate = useNavigate();
 
-  const slides = [
-    {
-      url: "/images/download-5.jpg", 
-      title: "Fresh Spring Collections",
-    },
-    {
-      url: "/images/download-3.jpg", 
-      title: "Elegant Wedding Bouquets",
-    },
-    {
-      url: "/images/download-4.jpg",
-      title: "Custom Event Styling",
-    }
-  ];
-
   return (
-    <Container className="mt-4 text-center">
-      <Row className="justify-content-center mb-3">
-        <Col lg={12}>
-          <Carousel fade indicators={false} className="shadow rounded overflow-hidden">
-            {slides.map((slide, index) => (
-              <Carousel.Item key={index} style={{ height: "400px" }}>
-                <img
-                  className="d-block w-100 h-100"
-                  src={slide.url}
-                  alt={slide.title}
-                  style={{ objectFit: "cover" }}
-                />
-                <Carousel.Caption className="bg-dark bg-opacity-25 rounded pb-3">
-                  <h5 className="text-uppercase fw-bold">{slide.title}</h5>
-                </Carousel.Caption>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </Col>
-      </Row>
+    <>
+      <Carousel>
+        {highlights.map((item, index) => (
+          <Carousel.Item key={index}>
+            <img
+              className="d-block w-100"
+              src={item.url}
+              alt={item.alt}
+              style={{ height: "500px", objectFit: "cover" }}
+            />
+            <Carousel.Caption>
+              <h3>{item.title}</h3>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>
 
-      <section className="mx-auto py-4" style={{ maxWidth: "800px" }}>
-        <h1 className="fw-bold text-uppercase mb-3" style={{ fontSize: "2.5rem" }}>
-          Bloom & Petal Florist
-        </h1>
-        <div style={{ height: "3px", width: "50px", background: "#198754", margin: "0 auto 20px" }}></div>
-        
-        <p className="text-muted mb-4 fs-5" style={{ lineHeight: "1.8" }}>
-          Located in the heart of Madison, we specialize in handcrafted floral arrangements 
-          that bring beauty and life to every occasion.
-        </p>
+      <Container fluid className="text-center py-5">
+        <section className="mx-auto py-4" style={{ maxWidth: "800px" }}>
+          <h1 className="fw-bold text-uppercase mb-3" style={{ fontSize: "2.5rem" }}>
+            Bloom & Petal Florist
+          </h1>
+          <div style={{ height: "3px", width: "50px", background: "#198754", margin: "0 auto 20px" }}></div>
+          
+          <p className="text-secondary mb-4 fs-5" style={{ lineHeight: "1.8" }}>
+            Located in the heart of Madison, we specialize in handcrafted floral arrangements 
+            that bring beauty and life to every occasion.
+          </p>
 
-        <div className="d-flex justify-content-center gap-3">
-          <Button 
-            variant="success" 
-            size="lg" 
-            className="rounded-0 px-5 fw-bold"
-            onClick={() => navigate("/gallery")}
-          >
-            SHOP ARRANGEMENTS
-          </Button>
-        </div>
-      </section>
-    </Container>
-  );
-}
-
-// Gallery Page
-function Gallery() {
-  return (
-    <Container className="mt-4">
-    <div className="position-relative d-flex align-items-center mb-4" style={{ minHeight: '50px' }}>
-        <h1 className="fw-bold text-uppercase text-center w-100 m-0">Our Arrangements</h1>
-        <Button 
-          as={Link} 
-          to="/gallery/all" 
-          variant="success" 
-          className="rounded-0 position-absolute end-0"
-        >
-          See All
-        </Button>
-      </div>
-      <Row className="g-4">
-        <Col md={4}><FlowerCard title="Higlights" description="blah blah blah" /></Col>
-        <Col md={4}><FlowerCard title="Wedding" description="blah blah blah" /></Col>
-        <Col md={4}><FlowerCard title="Prom" description="blah blah blah" /></Col>
-      </Row>
-    </Container>
+          <div className="d-flex justify-content-center gap-3">
+            <Button 
+              variant="success" 
+              size="lg" 
+              className="rounded-0 px-5 fw-bold"
+              onClick={() => navigate("/gallery")}
+            >
+              VIEW ARRANGEMENTS
+            </Button>
+          </div>
+        </section>
+      </Container>
+    </>
   );
 }
 
@@ -129,7 +88,7 @@ export default function App() {
       <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<ContactForm />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/gallery/all" element={<AllGallery />} />
         <Route path="*" element={<Home />} />
